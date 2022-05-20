@@ -4,7 +4,7 @@ first_lambda = lambda { puts "my first lambda" } # Uma lambda é iniciada com a 
 first_lambda.call # Ela pode ser guardada em uma variável para ser chamada futuramente com o método **call**.
 
 first_lambda1 = -> { puts "my first lambda" } #  pode abreviar a declaração de uma lambda da seguinte forma
-first_lambda1.call
+puts first_lambda1.class
 
 # Uma lambda também pode receber parâmetros para sua execução
 first_lambda2 = ->(names) { names.each { |name| puts name } }
