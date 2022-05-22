@@ -2,7 +2,6 @@
 
 ## 1 formas de criar uma regex em ruby
 
-
 # 1 - delimitando por / expressao/, Forma mais utilizada
 puts /expressao/
 
