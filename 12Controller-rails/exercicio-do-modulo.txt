@@ -1,0 +1,22 @@
+# Missões Especiais
+
+Realize as seguintes missões especiais para reforçar seu conhecimento sobre este módulo:
+
+1- Quantas actions você pode definir durante a criação de um controller por um generator?
+R - n actions
+
+2- Qual view deve ser renderizada após a execução da action **show** do controller **Authors**?
+R - app/view/Authors/show.html.rb
+
+3- Como você faria para definir uma rota do tipo **post** que aponta para o controller **Site**, em uma action chamada **landing**?
+R - post '/landing', to: 'site#lading'
+
+4- Qual a principal diferença entre as respostas **redirect_to** e **render**
+R - redirect_to, executar o codigo da action(metodo do controller).
+  - render:irá renderizar a resposta.
+
+5- Qual é a resposta do Ruby on Rails quando você utiliza **Strong Params** e um parâmetro que **não** é **permitido** é enviado durante uma requisição?
+R - 400, Bad Request, qndo um params que não é permitido é enviado.
+
+6- Em qual momento do ciclo de vida de uma action é executado o código de um callback **before_action**?
+R - sempre antes no inicio de uma action(metodo do classe controller)
