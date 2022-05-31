@@ -1,0 +1,39 @@
+# Models 
+
+## Models são criadas pelo Active Record, por meio do Generator do Rails.
+
+### Convenção de nomes:
+    - O nome da Model deve esta no singular;
+    - o Generator pluralizar as tables;
+exemplos:
+    * Model = Article (nome do Model usa CamelCase) | Table = articles  (nome do Table sempre estará em letras minúsculas e no plural);
+    * Model = LineItem (nome do Model usa camelCase mesmo que composto) | Table = line_items  (Table como nome composto  letras minúsculas com '_');
+
+### Convenção de Schema:
+    - O Active Record usar convenção para as colunas das tabelas,
+exemplos:
+    * Chave Estrageira = por padrão se usar,'singularized_table_name_id';
+    * Chave Primária = por padrão se usar, 'id'
+
+## Gerando um Model
+
+ - Na pasta do projeto se usar o comando
+    ** rails g model Address(nome da model) country:string(nome da coluna e tipo de dado) **
+
+- Atualmente o Ruby on Rails suporta os seguintes tipos de dados:
+
+    - `:binary`
+    - `:boolean`
+    - `:date`
+    - `:datetime`
+    - `:decimal`
+    - `:float`
+    - `:integer`
+    - `:primary_key`
+    - `:string`
+    - `:text`
+    - `:time`
+    - `:timestamp`
+
+
+    
