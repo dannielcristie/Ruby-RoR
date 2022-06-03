@@ -35,4 +35,34 @@ exemplos:
     - `:time`
     - `:timestamp`
 
+qaq# Migrations
+
+## Migrations é uma forma de versionar as tabelas de um banco de dados de uma aplicação, elas são criadas a parti da models
+
+## Migrations no rails
+
+### Executar migrations ja criadas no projeto rails:
+    * rails db:migrate
+
+### alterar uma tabelas ja existente :
+    
+    - adicionar coluna:
+        * rails g migration Add[Nomedacoluna]To[Nomedatabela] [coluna]:[tipo de dado]
+        exemplo:
+            rails g migration AddDescriptionToAuthor description:string
+        
+    - Remover uma coluna:
+        * rails g migration Remove[Nomedacoluna]From[Nomedatabela] [coluna]:[tipo de dado]
+        exemplo:
+            rails g migration RemoveDescriptionFromAuthor description:string
+
+    - Reverter uma migration ja executada:
+        * rails db:rollback
+        apos isso bastar fazer a alteração no arquivo da migration e executar novamente
+
+    
+    obs: 
+        todos os comando de alteração seguem o CamelCase;
+        sempre se executar as migration com * rails db:migrate * apos uma alteração.
+
 
