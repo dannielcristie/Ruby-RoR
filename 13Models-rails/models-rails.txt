@@ -66,3 +66,29 @@ qaq# Migrations
         sempre se executar as migration com * rails db:migrate * apos uma alteração.
 
 
+# Validação de Dados
+    Para segurança de uma aplicação Ruby on Rails, o Active Record fornece uma forma de validar os dados antes que eles sejam salvos no banco de dados. Isso é muito importante para manter a consistência do que é salvo e por isso eu te mostrarei nesta aula como realizar esse tipo de validação.
+
+## Active Record Validations
+    - validações sao feita no arquivo com o nome da tabela na pasta model
+        * app/models/[nomedatabela].ruby
+    - No arquivo tem uma classe com o nome da tabela herdando outra classe do Active Record,
+    - para criar validações basta criar um metodo chamado *validates* e as propriedades sera as validações
+
+##  validates helpers:
+    acceptance
+    validates_associated
+    confirmation
+    comparison
+    exclusion
+    format
+    inclusion
+    length
+    numericality
+    presence
+    absence
+    uniqueness
+    validates_with
+    validates_each
+
+    doc: https://guides.rubyonrails.org/active_record_validations.html#validation-helpers
