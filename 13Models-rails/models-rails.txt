@@ -92,3 +92,51 @@ qaq# Migrations
     validates_each
 
     doc: https://guides.rubyonrails.org/active_record_validations.html#validation-helpers
+
+
+# Callback de um model (Active Record Callback):
+    - É um codigo que dever ser executado, durante o ciclo de vida um model, nas etpas de Criar, Salvar, atualizar, excluir, validar e carregar um objeto;
+    - Esse codigo é um metodo privado dentro da model do projeto (./app/models/[projeto].rb);
+    - É possivel adicionar uma condição usando :if ou :unless, com Proc ou block;
+    - É possivel definir em qual operação CRUD o Callback dever ser executado, on: :[operação CRUD](symbol);
+
+    exemplo:
+        *  after_validation :titleize_last_name, if: Proc.new { |a| a.last_name.present? }, on: :create*
+              after_validation :titleize_last_name, = tipo de Callback e seu metodo que ela ira executar
+              if: Proc.new { |a| a.last_name.present? }, = condicional 
+              on: :create = em qual operação CRUD será executada.
+
+## Tipos de Callback para um model;
+
+    ### callbacks para criação de objetos     
+        - Creating an Object
+            before_validation
+            after_validation
+            before_save
+            around_save
+            before_create
+            around_create
+            after_create
+            after_save
+            after_commit / after_rollback   
+
+    ### callbacks para update de objetos     
+        - Updating an Object
+            before_validation
+            after_validation
+            before_save
+            around_save
+            before_update
+            around_update
+            after_update
+            after_save
+            after_commit / after_rollback
+   
+    ### callbacks para destruição  de objetos     
+        - Destroying an Object
+            before_destroy
+            around_destroy
+            after_destroy
+            after_commit / after_rollback
+
+doc: https://guides.rubyonrails.org/active_record_callbacks.html
