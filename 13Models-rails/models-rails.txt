@@ -140,3 +140,56 @@ qaq# Migrations
             after_commit / after_rollback
 
 doc: https://guides.rubyonrails.org/active_record_callbacks.html
+
+
+# Operações no banco com Models
+    - O Active record é usado para mapear uma tabela do banco, logo o model da tabela pode ser udado para realizar operações nela.
+    - operação pode ser feitas atraves do rails console
+
+## Operações CRUD:
+
+    ### Create
+
+        1 - metodo direto no model
+        *[Model].create([atributo]: [valor_atributo])
+        
+        2 instancia a model(a model é um objeto)
+            * objeto = [Model].new
+            * objeto.[atributo]= valor_atributo
+            * objeto.save
+    
+    ### Read
+
+        1 - listar todos
+            * [Model].all
+        
+        2 - listar o primeiro registro da tabela
+            * [Model].first
+        
+        3 - listar um unico registro por um parametro
+            * objeto = [Model].find_by([atributo]: valor_atributo)
+
+        4 - listar varios registros por um parametro em comum
+            * objeto = [Model].where([atributo]: valor_atributo)
+
+    ### Update
+
+        1 - localizar o registro pra ser alterado e faça a alteração
+            * objeto = [Model].find_by([atributo]: valor_atributo)
+            * objeto.[atributo]=  novo_valor_atributo
+            * objeto.save
+        
+    ### Delete
+
+         1 - localizar o registro pra ser deletado e faça deletar
+            * objeto = [Model].find_by([atributo]: valor_atributo)
+            * objeto.destroy
+
+        2 - deletar direto do model
+            *[Model].destroy_by([atributo]: valor_atributo)
+        
+        3 - deletar todos os registros
+            * [Model].destroy_all
+
+
+            
