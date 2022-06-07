@@ -192,4 +192,73 @@ doc: https://guides.rubyonrails.org/active_record_callbacks.html
             * [Model].destroy_all
 
 
-            
+# Associando dois models
+    - Em um banco de dados relacional existe o relacionamento entre tabelas e para facilitar operações envolvendo esses relacionamentos você pode utilizar o Active Record para mapear eles.
+
+
+## Tipos de associações
+    belongs_to
+    has_one
+    has_many
+    has_many :through
+    has_one :through
+    has_and_belongs_to_many
+
+
+Essas associações são necessárias para mapear os diferentes tipos de relacionamentos.
+
+
+
+## Relacionamentos
+
+Nesta aula você conhecerá os relacionamentos One-to-One e One-to-Many que são os principais presentes em aplicações e para definição deles serão utilizados 3 tipos das associações que foram descritas anteriormente.
+
+
+
+### One-to-One
+
+Pensando que o Endereço do projeto blog pertence a um Autor, você deve então criar uma migration para adicionar essa referência.
+
+1- Estando no local do seu projeto, crie a migration para adicionar a referência de Author a tabela Address
+
+```
+rails g migration AddAuthorReferenceToAddress author:references
+```
+
+Essa migration criará a chave estrangeira na tabela Address.
+
+2- Execute a migration com o comando
+
+```
+rails db:migrate
+```
+
+3- Faça uso do **belongs_to** no model `app/models/address.rb` para mapear o relacionamento de Endereço com o Autor.
+
+```
+  belongs_to :author
+```
+
+O belongs_to indica que Address possui uma referência de Author.
+
+4- Agora, para mapear a associação de Author com Address, utilize o **has_one**  no model `app/models/author.rb`
+
+```
+  has_one :address, dependent: :destroy
+```
+
+O has_one indica que um model está associado a outro, sendo esta uma relação One-to-One. Isso significa que o Autor possui apenas um Endereço.
+
+A propriedade `dependent: :destroy` significa que quando você excluir um autor, o endereço também deverá ser excluído
+
+
+
+### One-to-Many
+
+Para mapear o relacionamento One-to-Many vamos pensar que um Autor pode ter mais de um Endereço.
+
+1- Neste caso a associação belongs_to deve continuar mapeada no model **Address**.
+
+2- Substitua  `has_one :address` por `has_many :addresses` dentro do model `app/models/author.rb`
+
+Você sempre deverá mapear relacionamentos do tipo **has_many** utilizando o nome do relacionamento no plural.
