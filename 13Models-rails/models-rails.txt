@@ -207,51 +207,30 @@ doc: https://guides.rubyonrails.org/active_record_callbacks.html
 
 Essas associações são necessárias para mapear os diferentes tipos de relacionamentos.
 
-
-
 ## Relacionamentos
-
-Nesta aula você conhecerá os relacionamentos One-to-One e One-to-Many que são os principais presentes em aplicações e para definição deles serão utilizados 3 tipos das associações que foram descritas anteriormente.
-
+    - One-to-One e One-to-Many que são os principais presentes em aplicações 
 
 
 ### One-to-One
-
-Pensando que o Endereço do projeto blog pertence a um Autor, você deve então criar uma migration para adicionar essa referência.
-
 1- Estando no local do seu projeto, crie a migration para adicionar a referência de Author a tabela Address
-
-```
-rails g migration AddAuthorReferenceToAddress author:references
-```
-
-Essa migration criará a chave estrangeira na tabela Address.
+    *   rails g migration AddAuthorReferenceToAddress author:references
+    
+    - Essa migration criará a chave estrangeira na tabela Address.
 
 2- Execute a migration com o comando
-
-```
-rails db:migrate
-```
+    * rails db:migrate
 
 3- Faça uso do **belongs_to** no model `app/models/address.rb` para mapear o relacionamento de Endereço com o Autor.
+    *  belongs_to :author
 
-```
-  belongs_to :author
-```
-
-O belongs_to indica que Address possui uma referência de Author.
+    - O belongs_to indica que Address possui uma referência de Author.
 
 4- Agora, para mapear a associação de Author com Address, utilize o **has_one**  no model `app/models/author.rb`
+    *   has_one :address, dependent: :destroy
 
-```
-  has_one :address, dependent: :destroy
-```
-
-O has_one indica que um model está associado a outro, sendo esta uma relação One-to-One. Isso significa que o Autor possui apenas um Endereço.
-
-A propriedade `dependent: :destroy` significa que quando você excluir um autor, o endereço também deverá ser excluído
-
-
+    - O has_one indica que um model está associado a outro, sendo esta uma relação One-to-One.
+    - Isso significa que o Autor possui apenas um Endereço.
+    - A propriedade `dependent: :destroy` significa que quando você excluir um autor, o endereço também deverá ser excluído
 
 ### One-to-Many
 
@@ -262,3 +241,30 @@ Para mapear o relacionamento One-to-Many vamos pensar que um Autor pode ter mais
 2- Substitua  `has_one :address` por `has_many :addresses` dentro do model `app/models/author.rb`
 
 Você sempre deverá mapear relacionamentos do tipo **has_many** utilizando o nome do relacionamento no plural.
+
+
+# Carregando dados no Rails - Seeds
+
+Muitas das aplicações web precisam de uma base inicial de dados para funcionar. Um bom exemplo dessa base  pode ser a criação de um usuário admin; alguns tipos de Tags;  uma lista de Categorias e etc... 
+
+O problema é que nos ambientes de desenvolvimento e teste o banco de dados pode ser apagado com frequência, e então, para facilitar esse processo repetitivo de inicialização o Rails conta com o **seeds**, que ajuda a  automatizar essa tarefa.
+
+
+## Utilizando o seeds
+
+1- O **seeds** nada mais é do que um arquivo ruby localizado em `db/seeds`
+
+2- Você pode escrever qualquer código Ruby on Rails dentro do **seeds**
+
+3- Abra o projeto blog através do seu editor de texto favorito e navegue até o arquivo seeds
+
+4- Adicione duas instruções dentro deste arquivo para adicionar dois autores a base de dados inicial do seu projeto
+
+    * Author.create(first_name: 'Stephen', last_name: 'King')
+    * Author.create(first_name: 'Stephen', last_name: 'Hawking')
+
+5- Para apagar o banco de dados, criar ele novamente e então popular o banco com o seeds que você configurou utilize o seguinte comando
+    * rails db:reset
+
+6- Na versão 6 do rails também é possível apagar todos os registros do banco e popular ele novamente com o conteúdo do seeds com a task replant
+    * rails db:seed:replant
