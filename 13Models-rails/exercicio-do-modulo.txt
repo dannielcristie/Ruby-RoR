@@ -1,0 +1,38 @@
+# Missões Especiais
+
+Para reforçar o conhecimento que você adiquiriu neste módulo gostaria que você realizasse as missões especiais a seguir: 
+
+1- Crie um model chamado **Post**, com os  seguintes atributos:
+
+**content** - Conteúdo do post
+
+**publish_at** - Data e hora em que o post será publicado
+
+**author** - Referência do autor que fez a publicação
+
+R - rails g model Post content:string publish_at:timestamp author:references
+
+2- Adicione o campo **title** a tabela **posts** por meio de uma migration
+ R - rails g migration AddTitleToPost title:string
+
+3- Adicione a seguinte validação ao model **Post**
+
+* **title**  
+  tamanho: Mínimo 3  - Máximo 200 
+  presença: Obrigatório
+* **content**
+  presença: Permite valores nulos
+* **publish_at**
+  presença: Permite valores nulos
+
+R  -    validates :title, presence: true, length: { minimum: 3, maximum:200}
+        validates :content, allow_nil: true
+        validates :publish_at, allow_nil:true
+
+
+
+4- Mapeie o relacionamento de One-To-Many entre Post e Author
+
+R  -    belongs_to :author
+        has_many :posts, dependent: :destroy
+
