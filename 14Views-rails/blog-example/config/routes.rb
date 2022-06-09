@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   #Crianção de rotas de um CRUD, para acessar use .../rails/info/routes
   #resources :users
 
-  get '/posts',to:'posts#index'
+  #get '/posts',to:'posts#index'
+  resources :posts
+
 end
+j
