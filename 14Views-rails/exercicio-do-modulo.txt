@@ -1,0 +1,15 @@
+# Missões Especiais
+
+Realize as seguintes missões para reforçar o conhecimento que você obteu durante este módulo.
+
+1- Implemente as instruções necessárias para criação e atualização de um post dentro das actions **create** e **update** presentes no controller Posts.
+
+2- Crie um helper para diminuir a complexidade do formulário de Posts removendo da view o código que vem a seguir
+ 
+    a.first_name.to_s + ' ' + a.last_name.to_s
+
+
+3- Estude mais sobre Form Helpers através deste link
+
+    https://guides.rubyonrails.org/form_helpers.html
+

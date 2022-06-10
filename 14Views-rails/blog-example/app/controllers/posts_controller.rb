@@ -16,10 +16,24 @@ class PostsController < ApplicationController
     def edit
     end
 
+    
     def create
+        @post = Post.new(post_params)
+
+        if @post.save
+            redirect_to '/posts', notice: "Post was successfully created." 
+        else
+            render :new, status: :unprocessable_entity
+        end
     end
 
     def update
+        if @post.update(post_params)
+            redirect_to '/posts', notice: "Post was successfully updated." 
+        else
+            render :edit, status: :unprocessable_entity
+            
+        end
     end
 
     def destroy
@@ -29,5 +43,10 @@ class PostsController < ApplicationController
 
     def set_post
         @post = Post.find(params[:id])
+    end
+
+
+    def post_params
+        params.require(:post).permit(:title, :content, :publish_at, :author_id)
     end
 end

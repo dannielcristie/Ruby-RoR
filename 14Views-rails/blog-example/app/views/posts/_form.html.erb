@@ -10,7 +10,7 @@
     
     <%= post_form.label :author_id, 'Author' %>
     <%= post_form.select :author_id ,
-        Author.all.map { |a| [a.First_name.to_s + ' ' + a.last_name.to_s, a.id ] },
+        names_authors(Author), #helper personalizado
         selected: post.author_id%>
     
     </br></br>
