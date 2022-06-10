@@ -43,3 +43,82 @@ Essas são as configurações essenciais para você conseguir começar a trabalh
 
 
 ======================================================================================================================================================================
+
+
+# Envio de Emails com Rails
+
+É possível encontrar a definição  de emails do Action Mailer dentro da pasta `app/mailers` e a forma com que elas funcionam se parecem muito com a dos controllers que você já viu anteriormente durante uma aula passada.
+
+Veja abaixo algumas semelhanças entre um mailer e um controller:
+
+    * Actions e a utilização de views presentes em `app/views`
+    * Variáveis de instancia são acessíveis dentro das views
+    * Possível utilização de layouts e partials
+    * Abilidade de acessar params hash
+
+
+
+## Criando um mailer
+
+1- Utilize um generator para criar seu primeiro mailer
+    * rails g mailer PostMailer
+
+Será impresso na tela os arquivos que foram gerados.
+
+2- Veja que existe um arquivo chamado `application_mailer.rb` dentro da pasta `app/mailers`. 
+Saiba que todos os mailers criados por meio de um generator serão filhos da classe **ApplicationMailer** localizada dentro desse arquivo.
+
+3- Existe uma instrução de valor default dentro do arquivo `application_mailer.rb` que será utilizado por seus mailers a menos que você sobreescreva essa definição.
+
+
+4- Adicione a seguitne **action** dentro do mailer localizado em `app/mailers/post_mailer.rb` 
+
+        def new_post
+            @post = params[:post]
+            mail(to: 'notificacao@post.com', subject: 'New post was created')
+        end
+
+5- Agora crie duas views dentro de `app/views/post_mailer` sendo uma com o nome de `new_post.html.erb` e a outra com o nome `new_post.text.erb`
+
+(O Rails também envia uma versão do tipo texto de um email porque nem todos os clientes desejam receber uma página html como email)
+
+
+6- Dentro da view `new_post.html.erb` adicione o seguinte trecho de código
+
+
+        <h1> Nova publicação </h1>
+
+        <p> Um novo post foi criado dentro do website e seu título é: </p>
+        <p><%= @post.title %></p>
+
+
+7- Agora, dentro da view `new_post.text.erb` adicione esse outro trecho de código
+
+
+        Nova publicação
+
+        Um novo post foi criado dentro do website e seu título é:
+        <%= @post.title %>
+
+
+## Enviando o primeiro email
+
+1- Abra o terminal e levante o Mailcatcher caso ele ainda não esteja rodando
+
+    * mailcatcher
+
+2- Navegue até o projeto blog e abra o rails console.
+    * rails console
+
+3- Adicione o primeiro post a uma variável local
+    * post = Post.first
+
+4- Por fim, envie o email utilizando o método **deliver_now**
+    * PostMailer.with(post: post).new_post.deliver_now
+
+- O método **with** serve para que você envie os parâmetros necessários para o envio do email
+- O método **deliver_now** faz comque o email seja enviado no exato momento em que ele é chamado
+
+5- Depois que o email foi enviado, de uma olhada na caixa de email do Mailcatcher para ver como ele chegou através do seguinte link
+
+    http://localhost:1080/
