@@ -1,0 +1,75 @@
+# Execução de Jobs no Rails
+    - Tudo que pode ser executado de forma paralela e em background(sem a necessidade de aguardar uma resposta) pode se tornar um job.
+    - O Rails conta com uma ferramenta chamada Active Job para criação e execução de Jobs através de filas.
+
+## Criando seu primeiro Job
+
+1- Existe um generator para auxiliar na definição de Jobs.
+
+    - Abra seu terminal, navegue até a pasta do projeto blog e utilize ele para criar o seu primeiro job.
+
+        * rails g job NewPostsNotification --queue notification
+
+    - Os jobs são executados em fila onde uma aplicação pode ter várias filas. 
+    - Isso torna possível a implementação de prioridade na execução de cada uma delas (o quanto de recurso cada uma deve utilizar para processar seus jobs).
+
+
+2- Adicione dentro do método perform as instruções necessárias para execução do job.
+
+        class NewPostsNotificationJob < ApplicationJob
+        queue_as :notification
+
+            def perform(subscribers)
+                posts = Post.where(publish_at: (Time.now - 1.week)..).select(:title)
+                subscribers.each do |subscriber|
+                SubscribersMailer.with(subscriber: subscriber, posts: posts)
+                    .new_posts.deliver_now
+                end
+            end
+        end
+
+
+O job enviará um email informando os posts da ultima semana para um usuário que está na lista de emails  cadastrados para novidades.
+
+3- Agora crie o Mailer que enviará esses emails
+
+    * rails g mailer SubscribersMailer new_posts
+
+4- Substitua o código do mailer gerado anteriormente pelo que vem a seguir
+
+
+        class SubscribersMailer < ApplicationMailer
+            def new_posts
+                @posts = params[:posts]
+                @subscriber = params[:subscriber]
+
+                mail to: @subscriber[:email]
+            end
+        end
+
+5- Também substitua o código da view que renderiza o email, localizada em `app/views/subscribers_mailer/new_posts.html.erb`
+
+
+        <h2>Olá, <%= @subscriber[:name] %></h2>
+
+        <p>Veja a seguir a lista de publicações dessa semana:</p>
+        <ul>
+        <% @posts.each do |post| %>
+            <li><%= post.title %></li>
+        <% end %>
+        </ul>
+
+6- Abra o terminal e levante o mailcatcher para conseguir receber os emails localmente
+    * mailcatcher
+
+
+7- Navegue até o local do projeto e abra o rails console
+    * rails console
+
+8- Execte o job com a seguinte instrução
+    * NewPostsNotificationJob.perform_later([{email: 'joao@gmail.com', name: 'Joao'}, {email: 'lucas@gmail.com', name: 'Lucas'}])
+
+
+===================================================================================================================================================================
+
+
