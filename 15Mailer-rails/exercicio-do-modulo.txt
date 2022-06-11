@@ -1,0 +1,38 @@
+# Missões Especiais
+
+Realize as seguintes missões para reforçar o conhecimento que você adiquiriu duratne este módulo.
+
+
+
+## Questões
+
+1- O Mailcatcher deve ser utilizado no ambiente de produção?
+    não , somente em ambiente de desenvolvimento
+
+2- Para que serve o Mailcatcher?
+    simular um serviço de envio de emails
+
+3- Qual é o método utilizado para enviar parâmetros para sua action do Action Mailer?
+    PostMailer.with
+
+4- Qual é o método você deve utilizar para enviar os emails depois de executar sua action?
+    deliver_now
+
+
+## Prática
+
+1- Envie o email **new_post** toda vez que um novo post for criado dentro da sua aplicação.
+    - usando um callback no model de post com o after_created 
+
+        class Post < ApplicationRecord
+            after_create :send_new_post_email
+            belongs_to :author
+            validates :title, presence: true, length: { minimum: 3, maximum: 200 }
+
+            def send_new_post_email
+                PostMailer.with(post: self).new_post.deliver_now
+            end
+        end
+
+    - no rails console: 
+            * Post.create(title: "new post sending e-mail", author_id: Author.first.id)
