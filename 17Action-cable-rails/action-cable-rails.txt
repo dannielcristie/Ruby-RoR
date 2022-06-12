@@ -14,7 +14,31 @@ O Action Cable então utiliza o Websocket tendo em vista as vantagens de comunic
 
 =====================================================================================================================================================
 
+# Configuração inicial
 
+1- Abra o terminal, navegue até o local onde você guarda seus projetos e crie um novo projeto chamado **chat**
+
+    * rails new chat
+
+2- Entre dentro da pasta do projeto
+    cd chat
+
+3- É necessário criar um canal para tornar possível a conexão entre o cliente e o servidor. Faça isso através da seguinte instrução:
+    
+    * rails g channel chat speak
+
+
+5- Dentro do arquivo `app/channels/chat_channel.rb ` adicione a seguinte instrução dentro do método subscribed
+
+        def subscribed
+            stream_from "chat_channel"
+        end
+
+6- Ainda no mesmo arquivo, substitua o método speak pelo código que vem a seguir
+
+    def speak(data)
+        ActionCable.server.broadcast("chat_channel", { message: data['message'] })
+    end
 
 =====================================================================================================================================================
 
