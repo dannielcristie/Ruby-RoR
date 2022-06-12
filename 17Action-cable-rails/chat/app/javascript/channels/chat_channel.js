@@ -2,6 +2,7 @@ import consumer from "./consumer"
 
 consumer.subscriptions.create("ChatChannel", {
   connected() {
+    console.log('conectado ao chat room!');
     // Called when the subscription is ready for use on the server
   },
 
