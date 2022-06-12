@@ -21,6 +21,7 @@ O Action Cable então utiliza o Websocket tendo em vista as vantagens de comunic
     * rails new chat
 
 2- Entre dentro da pasta do projeto
+    
     cd chat
 
 3- É necessário criar um canal para tornar possível a conexão entre o cliente e o servidor. Faça isso através da seguinte instrução:
