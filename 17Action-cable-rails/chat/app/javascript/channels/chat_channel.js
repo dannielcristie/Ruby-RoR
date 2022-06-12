@@ -12,22 +12,27 @@ const chatChannel = consumer.subscriptions.create("ChatChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    $('#messages').append(`<p>${data.message}</p>`)
+    $('#messages').append(`<p> ${data.author}:  ${data.message}</p>`)
     $('html, body').animate({ scrollTop: $(document).height() }, 0)
   },
 
-  speak: function (message) {
-    return this.perform('speak', { message })
+  speak: function (data) {
+    return this.perform('speak', data)
   }
 })
 
 $(document).on('turbolinks:load', function () {
-  $("#message_form").on('submit', function(e){
+  $("#message_form").on('submit', function (e) {
     e.preventDefault();
-    let message = $('#message_to_sent').val();
-    if (message.length > 0) {
-      chatChannel.speak(message);
+    let data = {
+      message: $('#message_to_sent').val(),
+      author: $('#author').val()
+    }
+    console.log(data)
+    if (data.message.length > 0 && data.author.length > 0) {
+      chatChannel.speak(data);
       $('#message_to_sent').val('')
+      $('#author').val('')
     }
   });
 })
