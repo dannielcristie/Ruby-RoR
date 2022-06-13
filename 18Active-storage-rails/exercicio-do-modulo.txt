@@ -1,0 +1,14 @@
+# Missões Especiais
+
+Realize a seguinte missão para solidificar os conhecimentos que você adiquiriu durante este módulo:
+
+Adicione um relacionamento **has_many_attached** de **photos** para salvar uma galeria de fotos do Autor através do Active Storage.
+
+Dicas:
+
+* Utilize a documentação para ver como utilizar o relacionamento **has_many_attached** 
+* Lembre-se de utilizar a propriedade "multiple: true" para permitir a seleção de mais de uma imagem na hora de enviar as fotos pelo formulário
+* Tenha em mente que o que muda nesse relacionamento é que **photos** é um **Array** de imagens.
+
+
+resolvido

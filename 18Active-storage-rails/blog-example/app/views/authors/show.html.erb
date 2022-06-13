@@ -6,6 +6,7 @@
   </p>
 <% end %>
 
+
 <p>
   <strong>First name:</strong>
   <%= @author.First_name %>
@@ -21,5 +22,11 @@
   <%= @author.description %>
 </p>
 
+<% if @author.photos.attached? %>
+  <% @author.photos.each do |photo| %>
+    <%= image_tag(photo, height: '200')%>
+  <% end %>
+  </br></br>
+<% end %>
 <%= link_to 'Edit', edit_author_path(@author) %> |
 <%= link_to 'Back', authors_path %>
