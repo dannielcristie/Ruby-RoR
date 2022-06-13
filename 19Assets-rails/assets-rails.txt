@@ -61,3 +61,10 @@ Para isso  tenha em mente que você deve utilizar o seguinte comando:
 Esse comando irá compilar tanto arquivos presentes no Asset Pipeline quanto no Webpack
 
 ======================================================================================================================================================
+# Sprockets vs Webpacker
+
+As duas ferramentas irão compilar o código front-end de uma forma amigável para o ambiente de desenvolvimento e otimizado para o ambiente produção, mas o que pode gerar dúvida é que apesar das semelhanças, porque atualmente um novo projeto Ruby on Rails vem com as duas integradas por padrão?
+
+A resposta é que o Sprockets foi desenhado para se encaixar com a forma em que o Rails trabalha e por isso permite que códigos sejam adicionados aos assets de um projeto através de gems, enquanto o Webpacker se torna uma solução mais interessante para a utilização de ferramentas mais recentes do Javascript e pacotes do NPM.
+
+Atualmente a configuração padrão do Rails é que os arquivos css sejam processados pelo Sprockets e os Javascript pelo Webpacker, mas nada impede que tudo seja feito através do Webpacke
